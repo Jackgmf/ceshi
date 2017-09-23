@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/index.css">
+		<!-- CSS overrides - remove if you don't need it -->
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body ng-app="app">
+		<section class="todoapp" ng-controller="ctrl">
+			<header class="header">
+				<h1>todos</h1>
+				<form ng-submit="add()">
+				  <input class="new-todo" placeholder="What needs to be done?" autofocus ng-model="text">
+				</form>
+			</header>
+			<section class="main">
+				<input class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+				 <!-- ng-repeat遍历时，数组中如果有重复元素，就会报错 -->
+				 <!-- 在遍历时，添加track by $index就可以 -->
+				    <li ng-repeat="msg in unfinish track by $index">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-click="dianji()">
+							<label>{{msg}}</label>
+							<button class="destroy"></button>
+						</div>
+						<input class="edit" value="Rule the web">
+					</li>
+					<li class="completed">
+						<div class="view">
+							<input class="toggle" type="checkbox" checked>
+							<label>Taste JavaScript</label>
+							<button class="destroy"></button>
+						</div>
+						<input class="edit" value="Create a TodoMVC template">
+					</li>
+					
+				</ul>
+			</section>
+			<footer class="footer">
+				<span class="todo-count"><strong>0</strong> item left</span>
+				<button class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<p>Created by <a href="http://todomvc.com">you</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="js/base.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+	<script src="AngularJS/angular.min.js"></script>
+	<script type="text/javascript">
+      var app = angular.module("app",[]);
+      app.controller("ctrl",["$scope",function($scope){
+         //声明一个数组，用于保存未完成的事件
+         $scope.unfinish = [];
+         //声明一个数组，用于保存完成的事件
+         $scope.add = function(){
+         	// alert($scope.text);
+         	// 每按一次回车，就将文本框中的内容放到未完成事件的数组当中去
+            $scope.unfinish.push($scope.text);
+            //清空文本框原来的数组
+            $scope.text = "";
+            $scope.dianji = function(){
+
+            }
+         }
+      }])
+	</script>
+</html>
